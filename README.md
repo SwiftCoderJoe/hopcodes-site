@@ -20,3 +20,6 @@ Groups:
 2. ★ Notifications, calendar, news (info flow)
 3. Problem solving, language guides (interactive)
 4. AI/ML, Robotics
+
+Technologies:
+* Basic HTML/CSS
