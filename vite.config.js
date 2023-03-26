@@ -2,6 +2,7 @@
 export default {
     "root": "src/",
     "build": {
-        "outDir": "../dist/"
+        "outDir": "../dist/",
+        "emptyOutDir": "true"
     }
 }
