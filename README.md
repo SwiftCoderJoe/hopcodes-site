@@ -1,8 +1,28 @@
 # Hopcodes Homepage
 
-A homepage for all things hopcodes
+A homepage for all things hopcodes!
 
-## Intended Functionality
+
+
+## Building and Developing
+
+To get started working on this site, first clone the repository using your tool of choice. `gh`, github's official CLI program, is used here:
+
+`gh repo clone SwiftCoderJoe/hopcodes-site`
+
+Next, enter the directory you just cloned and use NPM to install dependencies.
+
+`cd hopcodes-site && npm i`
+
+Now, you're ready to start the site! Use the preconfigured project commands to start a local server.
+
+`npm run serve`
+
+You should now be able to click on the link shown in your terminal and see the website! If you'd like to start hacking and improving the project, check out our developer tools, best practices, and conventions at `docs/developing.md`. Have fun!
+
+## Project Info
+
+### Intended Functionality
 * ★ Notification System
 * ★ Calendar
 * ★ News and things in CS
@@ -12,8 +32,8 @@ A homepage for all things hopcodes
   * AI information center
   * Robotics center
 * Login/personilization
- 
-## Organization
+
+### Organization
  
 Groups:
 1. ★ Login, personlization (themes, stylesheet)
