@@ -1,0 +1,15 @@
+{
+    "version": "0.1.0",
+    "scripts": {
+        "dev": "cross-env TAILWIND_MODE=watch vite",
+        "build": "cross-env TAILWIND_MODE=build vite build",
+        "serve": "vite preview"
+    },
+    "devDependencies": {
+        "cross-env": "^7.0.3",
+        "prettier": "^2.8.7",
+        "prettier-plugin-tailwindcss": "^0.2.5",
+        "vitawind": "^2.2.4",
+        "vite": "^4.2.1"
+    }
+}
