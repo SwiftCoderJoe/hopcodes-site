@@ -38,3 +38,7 @@ Building can be done by running:
 `npm run build`
 
 This will generate a single-page web app in `dist/`. This version is minified and is suitable for public distribution.
+
+## Branching
+
+Each time you want to add a new feature, please create a branch with a discriptive title. Feel free to create a draft pull request right away. When you're done, submit a pull request and ideally wait for someone to review and OK it.
