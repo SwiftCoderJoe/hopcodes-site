@@ -1,2 +1,8 @@
 node_modules/
 dist/
+
+# Don't commit any personal files anyone wants to have
+.personal/
+
+# MacOS
+.DS_Store
