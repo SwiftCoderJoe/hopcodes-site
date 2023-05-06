@@ -4,8 +4,9 @@
 const lightThemeIcons = document.querySelectorAll(".lightTheme");
 const darkThemeIcons = document.querySelectorAll(".darkTheme");
 
-//Initial Theme (based on system preference):
+// Set theme to whatever it should be
 const setTheme = () => {
+    // If the dark or light mode is explicitly set, use that. If not, then ask the OS what the user prefers.
     if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
         document.documentElement.classList.add('dark')
         lightThemeIcons.forEach((item) => item.classList.remove('hidden'))
