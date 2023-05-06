@@ -10,7 +10,7 @@
     <link rel="icon" type="image/x-icon" href="shared/favicon.ico">
 </head>
 
-<body class="bg-slate-900">
+<body class="bg-zinc-50 text-zinc-900 dark:bg-zinc-900 dark:text-zinc-50">
     <!-- Mobile Nav -->
     <nav class="flex flex-col md:hidden bg-maroon p-2 text-3xl">
         <div class="flex justify-between">
@@ -50,11 +50,15 @@
             <a href="/blog/" class="text-center relative h-16 w-16 hover:w-64 overflow-hidden duration-200 bg-no-repeat bg-contain bg-[url('/shared/roboticsIcon.png')] hover:bg-none hover:bg-zinc-300 rounded-lg">
                 <div class="absolute bottom-0 left-0 right-0 top-0 opacity-0 hover:opacity-100 transition duration-100">Blog</div>
             </a>
+            <!--Light/Dark Mode-->
+            <img class="lightTheme cursor-pointer" src="shared/Sun-icon.png" height="75px" width="75px"/>
+            <img class="darkTheme cursor-pointer" src="shared/Moon-icon.png" height="75px" width="75px"/>
         </div>
     </nav>
     <h1>Hello</h1>
 
     <script src="shared/menu.js"></script>
+    <script src="/app.js"></script>
 </body>
 
 </html>
