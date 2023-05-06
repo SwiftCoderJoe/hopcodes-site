@@ -1,0 +1,15 @@
+nav.desktopNav {
+    @apply hidden md:flex justify-between bg-maroon p-2 text-6xl
+}
+
+.navElement {
+    @apply relative h-16 w-16 hover:w-64 overflow-hidden duration-200 bg-no-repeat bg-contain hover:bg-none hover:bg-zinc-300 hover:dark:bg-zinc-600 rounded-lg text-center
+}
+
+.navElement > div {
+    @apply absolute bottom-0 left-0 right-0 top-0 opacity-0 hover:opacity-100 transition duration-100
+}
+
+.mobileNavElement {
+    @apply hover:bg-zinc-300 hover:dark:bg-zinc-600 transition duration-200 rounded p-1
+}

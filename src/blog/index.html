@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hopcodes Blog</title>
-
+    <link rel="stylesheet" href="/shared/nav.css">
     <link rel="stylesheet" type="text/css" href="index.css">
     <link rel="icon" type="image/x-icon" href="../shared/favicon.ico">
 </head>
@@ -16,7 +16,7 @@
             <a href="/" class="bg-contain bg-home-icon h-10 w-10"></a>
             <div class="flex gap-2">
                 <button id="nav-hamburger-button" type="button" class="inline-flex items-center p-2 rounded-lg">
-                    <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
                 </button>
                 <img class="lightTheme cursor-pointer h-10" src="/shared/Sun-icon.png"/>
                 <img class="darkTheme cursor-pointer h-10" src="/shared/Moon-icon.png"/>
@@ -24,34 +24,34 @@
         </div>
         <div class="hidden w-full" id="navbar-collapsable">
             <div class="flex flex-col">
-                    <a href="/" class="hover:bg-zinc-300 hover:dark:bg-zinc-600 transition duration-200 rounded p-1">Home</a>
-                    <a href="#" class="hover:bg-zinc-300 hover:dark:bg-zinc-600 transition duration-200 rounded p-1">Calendar</a>
-                    <a href="#" class="hover:bg-zinc-300 hover:dark:bg-zinc-600 transition duration-200 rounded p-1">Robotics</a>
-                    <a href="/blog/" class="hover:bg-zinc-300 hover:dark:bg-zinc-600 transition duration-200 rounded p-1">Blog</a>
+                    <a href="/" class="mobileNavElement">Home</a>
+                    <a href="#" class="mobileNavElement">Calendar</a>
+                    <a href="#" class="mobileNavElement">Robotics</a>
+                    <a href="/blog/" class="mobileNavElement">Blog</a>
             </div>
         </div>
     </nav>
 
     <!-- Desktop Nav -->
-    <nav class="hidden md:flex justify-between bg-maroon p-2 text-6xl">
+    <nav class="desktopNav">
         <!-- Homepage -->
-        <a href="/" class="text-center relative h-16 w-16 hover:w-64 overflow-hidden duration-200 bg-no-repeat bg-contain bg-home-icon hover:bg-none hover:bg-zinc-300 hover:dark:bg-zinc-600 rounded-lg">
-            <div class="absolute bottom-0 left-0 right-0 top-0 opacity-0 hover:opacity-100 transition duration-100">Home</div>
+        <a href="/" class="navElement bg-home-icon">
+            <div>Home</div>
         </a>
 
         <!-- Navigation Icons -->
         <div class="flex gap-2">
             <!-- Calendar -->
-            <a href="?" class="text-center relative h-16 w-16 hover:w-64 overflow-hidden duration-200 bg-no-repeat bg-contain bg-calendar-icon hover:bg-none hover:bg-zinc-300 hover:dark:bg-zinc-600 rounded-lg">
-                <div class="absolute bottom-0 left-0 right-0 top-0 opacity-0 hover:opacity-100 transition duration-100">Calendar</div>
+            <a href="?" class="navElement bg-calendar-icon">
+                <div>Calendar</div>
             </a>
             <!-- Robotics -->
-            <a href="?" class="text-center relative h-16 w-16 hover:w-64 overflow-hidden duration-200 bg-no-repeat bg-contain bg-robotics-icon hover:bg-none hover:bg-zinc-300 hover:dark:bg-zinc-600 rounded-lg">
-                <div class="absolute bottom-0 left-0 right-0 top-0 opacity-0 hover:opacity-100 transition duration-100">Robotics</div>
+            <a href="?" class="navElement bg-robotics-icon">
+                <div>Robotics</div>
             </a>
             <!-- Blog -->
-            <a href="/blog/" class="text-center relative h-16 w-16 hover:w-64 overflow-hidden duration-200 bg-no-repeat bg-contain bg-robotics-icon hover:bg-none hover:bg-zinc-300 hover:dark:bg-zinc-600 rounded-lg">
-                <div class="absolute bottom-0 left-0 right-0 top-0 opacity-0 hover:opacity-100 transition duration-100">Blog</div>
+            <a href="/blog/" class="navElement bg-robotics-icon">
+                <div>Blog</div>
             </a>
             <!--Light/Dark Mode-->
             <img class="lightTheme cursor-pointer h-16" src="/shared/Sun-icon.png"/>
