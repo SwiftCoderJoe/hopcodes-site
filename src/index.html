@@ -10,28 +10,34 @@
     <link rel="icon" type="image/x-icon" href="shared/favicon.ico">
 </head>
 
-<body class="bg-zinc-900 text-zinc-50">
+<body class="bg-zinc-50 text-zinc-900 dark:bg-zinc-900 dark:text-zinc-50">
     <nav class="flex justify-between bg-maroon p-2">
         
         <!-- Homepage -->
         <a href="?">
-            <img src="shared/homeIcon.png" alt="Hop-Codes-Homepage" border="0" height="75px" width="75px">
+            <img src="shared/homeIcon.png" alt="Hop-Codes-Homepage" height="75px" width="75px">
         </a>
 
         <!-- Navigation Icons -->
-        <div class="flex gap-2">
+        <div class="flex items-startgap-2">
             <!-- Calender -->
             <a href="?">
-                <img src="shared/calIcon.png" alt="Hop-Codes-Calender" border="0" height="75px" width="75px">
+                <img src="shared/calIcon.png" alt="Hop-Codes-Calender" height="75px" width="75px">
             </a>
             <!-- Robotics -->
             <a href="?">
-                <img src="shared/roboticsIcon.png" alt="Hop-Codes-Robotics" border="0" height="75px" width="75px">
+                <img src="shared/roboticsIcon.png" alt="Hop-Codes-Robotics" height="75px" width="75px">
             </a>
+            <!--Light/Dark Mode-->
+            <img class="lightTheme cursor-pointer" src="shared/Sun-icon.png" height="75px" width="75px"/>
+            <img class="darkTheme cursor-pointer" src="shared/Moon-icon.png" height="75px" width="75px"/>
         </div>
         
     </nav>
     <h1>Hello</h1>
+
+    
+    <script src="/app.js"></script>
 </body>
 
 </html>
