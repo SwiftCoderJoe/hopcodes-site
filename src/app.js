@@ -1,51 +1,31 @@
 //https://www.youtube.com/watch?v=oMOe_32M6ss
 
 //ICONS
-const lightThemeIcon = document.querySelector(".lightTheme");
-const darkThemeIcon = document.querySelector(".darkTheme");
+const lightThemeIcons = document.querySelectorAll(".lightTheme");
+const darkThemeIcons = document.querySelectorAll(".darkTheme");
 
-//DarkorLightTheme?
-// -- User option:
-const userTheme = localStorage.getItem("theme");
-
-//Stored in Computer:
-const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
-
-//Icon Toggle
-const iconToggle = () => {
-    lightThemeIcon.classList.toggle("hidden");
-    darkThemeIcon.classList.toggle("hidden");
-};
-
-//Initial Theme (based on system preference):
-const themeCheck = () => {
-    if (userTheme === "dark" || (!userTheme && systemTheme)) {
-        document.documentElement.classList.add("dark");
-        darkThemeIcon.classList.add("hidden");
-        return;
+// Set theme to whatever it should be
+const setTheme = () => {
+    // If the dark or light mode is explicitly set, use that. If not, then ask the OS what the user prefers.
+    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark')
+        lightThemeIcons.forEach((item) => item.classList.remove('hidden'))
+        darkThemeIcons.forEach((item) => item.classList.add('hidden'))
+    } else {
+        document.documentElement.classList.remove('dark')
+        lightThemeIcons.forEach((item) => item.classList.add('hidden'))
+        darkThemeIcons.forEach((item) => item.classList.remove('hidden'))
     }
-    lightThemeIcon.classList.add("hidden");
 };
 
-//Choose theme Manually
-const themeChoose = () => {
-    if (document.documentElement.classList.contains("dark")) {
-        document.documentElement.classList.remove("dark");
-        localStorage.setItem("theme", "light");
-        iconToggle();
-        return;
-    }
-    document.documentElement.classList.add("dark");
-    localStorage.setItem("theme", "dark");
-    iconToggle();
-};
+lightThemeIcons.forEach((item) => item.addEventListener("click", () => {
+    localStorage.theme = 'light'
+    setTheme();
+}));
 
-lightThemeIcon.addEventListener("click", () => {
-    themeChoose();
-});
+darkThemeIcons.forEach((item) => item.addEventListener("click", () => {
+    localStorage.theme = 'dark'
+    setTheme();
+}));
 
-darkThemeIcon.addEventListener("click", () => {
-    themeChoose();
-});
-
-themeCheck();
+setTheme();
