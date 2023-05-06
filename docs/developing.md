@@ -37,7 +37,7 @@ Building can be done by running:
 
 `npm run build`
 
-This will generate a single-page web app in `dist/`. This version is minified and is suitable for public distribution.
+This will generate a single-page web app in `dist/`. This version is minified and is suitable for public distribution. Your build can be viewed in a live server by running `npm run serve`, but your browser will probably not view it correctly. We're still investigating how to make this command work better.
 
 ## Branching
 
