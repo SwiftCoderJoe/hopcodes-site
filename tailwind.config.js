@@ -4,8 +4,8 @@ module.exports = {
     content: ['./src/**/*.{js,jsx,ts,tsx,vue,html}'],
     theme: {
         colors: {
-            sky: colors.sky,
-            slate: colors.slate
+            zinc: colors.zinc,
+            maroon: "#8B2832"
         },
         extend: {},
     },
