@@ -42,3 +42,17 @@ This will generate a single-page web app in `dist/`. This version is minified an
 ## Branching
 
 Each time you want to add a new feature, please create a branch with a discriptive title. Feel free to create a draft pull request right away. When you're done, submit a pull request and ideally wait for someone to review and OK it.
+
+## Tailwind
+
+This project uses Tailwind. Tailwind is great, but it can result in very long class lists! If you find yourself using a particular selection of class names a large number of times on a single page or across multiple pages, consider creating a custom CSS class to combine the long class lists. They look like this:
+
+```css
+.someSimpleThing {
+    @apply p-0 h-16 text-center text-99xl overflow-hidden tailwind-classes are-very-long this-makes-things-simpler
+}
+```
+
+This applies the very long list of classes after the apply tag on every element with the class `someSimpleThing`. This process can be useful for UI elements that we use many times such as buttons, links, et cetera. If the class is used across multiple pages, place it in the shared folder.
+
+Do not overuse this feature. It should only be used on small, highly reusable things like buttons and links.
