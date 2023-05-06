@@ -1,6 +1,0 @@
- - Get my PR merged w/ darkmode
- - Cleanup classes using @apply
- - change quotes to backticks?
- - cleanup images to theme
- - fix docs that say use serve but that only works if you build... prolly just remove serve
- - Move app.js to shared and maybe combine
