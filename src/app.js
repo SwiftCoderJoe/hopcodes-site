@@ -13,18 +13,18 @@ const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
 
 //Icon Toggle
 const iconToggle = () => {
-    lightThemeIcon.classList.toggle.hidden;
-    darkThemeIcon.classList.toggle.hidden;
+    lightThemeIcon.classList.toggle("hidden");
+    darkThemeIcon.classList.toggle("hidden");
 };
 
 //Initial Theme (based on system preference):
 const themeCheck = () => {
     if (userTheme === "dark" || (!userTheme && systemTheme)) {
         document.documentElement.classList.add("dark");
-        darkThemeIcon.classList.add("display.none");
+        darkThemeIcon.classList.add("hidden");
         return;
     }
-    lightThemeIcon.classList.add("display.none");
+    lightThemeIcon.classList.add("hidden");
 };
 
 //Choose theme Manually
