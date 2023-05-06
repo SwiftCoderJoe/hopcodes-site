@@ -2,8 +2,6 @@
 
 A homepage for all things hopcodes!
 
-
-
 ## Building and Developing
 
 To get started working on this site, first clone the repository using your tool of choice. `gh`, github's official CLI program, is used here:
