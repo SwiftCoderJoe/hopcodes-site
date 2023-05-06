@@ -7,7 +7,7 @@ module.exports = {
         colors: {
             sky: colors.sky,
             zinc: colors.zinc,
-            maroon: "#8B2832",
+            maroon: `#8B2832`,
         },
         extend: {},
     },
