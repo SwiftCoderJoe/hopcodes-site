@@ -2,8 +2,6 @@
 
 A homepage for all things hopcodes!
 
-
-
 ## Building and Developing
 
 To get started working on this site, first clone the repository using your tool of choice. `gh`, github's official CLI program, is used here:
@@ -16,7 +14,7 @@ Next, enter the directory you just cloned and use NPM to install dependencies.
 
 Now, you're ready to start the site! Use the preconfigured project commands to start a local server.
 
-`npm run serve`
+`npm run dev`
 
 You should now be able to click on the link shown in your terminal and see the website! If you'd like to start hacking and improving the project, check out our developer tools, best practices, and conventions at `docs/developing.md`. Have fun!
 
