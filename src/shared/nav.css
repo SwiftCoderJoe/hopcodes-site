@@ -15,5 +15,5 @@ nav.desktopNav {
 }
 
 header {
-    @apply text-center m-5 p-5 rounded-xl text-6xl text-zinc-50 dark:text-zinc-900 bg-zinc-600 dark:bg-zinc-300
+    @apply text-center m-5 p-5 rounded-xl text-3xl md:text-6xl text-zinc-50 dark:text-zinc-900 bg-zinc-600 dark:bg-zinc-300
 }
