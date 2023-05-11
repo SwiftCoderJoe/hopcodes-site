@@ -1,6 +1,8 @@
 node_modules/
 dist/
 
+scripts/blog-creator/target/
+
 # Don't commit any personal files anyone wants to have
 .personal/
 
