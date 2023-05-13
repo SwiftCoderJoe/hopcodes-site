@@ -1,5 +1,6 @@
 date: May 10, 2023
 author: Joe Cardenas
+tags: hopcodes website, tailwind, web
 
 Ever since I originally joined HopCodes, I have wanted to create a real, collaborative project. This year, this project comes in the form of a website. I hope that this website will be easily kept up-to-date and it can host lots of interesting information for all HopCodes members, and it also serves as a learning experience for self-taught programmers. Self-taught programmers often have trouble working with other programmers in larger projects, so I've decided to run this project's repository in the same way larger projects are often run. This way, club members can get experience with reading others' code, pull requests, and code review. 
 
@@ -21,4 +22,4 @@ The most important things for us to build are the calendar, blog, and some simpl
 
 # Current Progress
 
-As of May 10, 2023, progress has been steady. I have been focusing on the Navbar, mobile support, and the blog. Sophia has been working on implementing a dark mode and the landing page, while Nick has been working on the calendar page. 
+As of May 10, 2023, progress has been steady. I have been focusing on the navbar, mobile support, and the blog. Sophia has been working on implementing a dark mode and the landing page, while Nick has been working on the calendar page. 
