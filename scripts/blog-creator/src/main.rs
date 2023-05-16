@@ -1,12 +1,12 @@
 use std::ffi::OsString;
-use std::fs::{self};
-use markdown::{self, Block};
+use std::fs;
+use markdown;
 
 mod blog;
-use blog::{Blog, Author, build_blog, create_author_list};
+use blog::{Blog, build_blog, create_author_list};
 
 mod html_creator;
-use html_creator::{html_for_blog, html_for_main_page};
+use html_creator::{html_for_article, html_for_main_page, html_for_author};
 
 const TAILWIND_CSS: &str = "@tailwind base;@tailwind components;@tailwind utilities;";
 
@@ -42,7 +42,7 @@ fn main() {
     // Create blog pages
     for (i, blog) in blog_entries.iter().enumerate() {
         fs::create_dir_all(format!("../../src/blog/{}", blog.url)).expect("Couldn't create article folder.");
-        fs::write(format!("../../src/blog/{}/index.html", blog.url), html_for_blog(blog))
+        fs::write(format!("../../src/blog/{}/index.html", blog.url), html_for_article(blog))
             .expect("Couldn't write blog file.");
         fs::write(format!("../../src/blog/{}/index.css", blog.url), TAILWIND_CSS)
             .expect("Couldn't write article CSS.");
@@ -50,6 +50,15 @@ fn main() {
 
     // Create author pages
     let authors = create_author_list(&blog_entries);
+
+    for (author_name, author) in authors {
+        let author_url = author_name.replace(" ", "_");
+        fs::create_dir_all(format!("../../src/blog/authors/{}", author_url)).expect("Couldn't create author foler.");
+        fs::write(format!("../../src/blog/authors/{}/index.html", author_url), html_for_author(&author_name, author, &blog_entries))
+            .expect("Couldn't write blog file.");
+        fs::write(format!("../../src/blog/authors/{}/index.css", author_url), TAILWIND_CSS)
+            .expect("Couldn't write article CSS.");
+    }
 }
 
 fn parse_blog(content: String, filename: OsString) -> Option<Blog> {

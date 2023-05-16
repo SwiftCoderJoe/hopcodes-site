@@ -1,5 +1,37 @@
+use std::borrow::Borrow;
+
 use markdown::{Block, Span, ListItem};
-use crate::blog::Blog;
+use crate::blog::{Blog, Author, self};
+
+pub fn html_for_author(author_name: &str, author: Author, blogs: &[Blog]) -> String {
+
+    let mut html = String::from("<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><title>Hopcodes Blog</title><link rel=\"stylesheet\" href=\"/shared/nav.css\"><link rel=\"stylesheet\" type=\"text/css\" href=\"index.css\"><link rel=\"icon\" type=\"image/x-icon\" href=\"/shared/favicon.ico\"></head><body class=\"bg-zinc-50 text-zinc-900 dark:bg-zinc-900 dark:text-zinc-50\"><!-- Mobile Nav --><nav class=\"flex flex-col md:hidden bg-maroon p-2 text-3xl\"><div class=\"flex justify-between\"><a href=\"/\" class=\"bg-contain bg-home-icon h-10 w-10\"></a><div class=\"flex gap-2\"><button id=\"nav-hamburger-button\" type=\"button\" class=\"inline-flex items-center p-2 rounded-lg\"><svg class=\"w-6 h-6\" fill=\"currentColor\" viewBox=\"0 0 20 20\" xmlns=\"http://www.w3.org/2000/svg\"><path fill-rule=\"evenodd\" d=\"M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z\" clip-rule=\"evenodd\"></path></svg></button><img class=\"lightTheme cursor-pointer h-10\" src=\"/shared/Sun-icon.png\"/><img class=\"darkTheme cursor-pointer h-10\" src=\"/shared/Moon-icon.png\"/></div></div><div class=\"hidden w-full\" id=\"navbar-collapsable\"><div class=\"flex flex-col\"><a href=\"/\" class=\"mobileNavElement\">Home</a><a href=\"#\" class=\"mobileNavElement\">Calendar</a><a href=\"#\" class=\"mobileNavElement\">Robotics</a><a href=\"/blog/\" class=\"mobileNavElement\">Blog</a></div></div></nav><!-- Desktop Nav --><nav class=\"desktopNav\"><!-- Homepage --><a href=\"/\" class=\"navElement bg-home-icon\"><div>Home</div></a><!-- Navigation Icons --><div class=\"flex gap-2\"><!-- Calendar --><a href=\"?\" class=\"navElement bg-calendar-icon\"><div>Calendar</div></a><!-- Robotics --><a href=\"?\" class=\"navElement bg-robotics-icon\"><div>Robotics</div></a><!-- Blog --><a href=\"/blog/\" class=\"navElement bg-robotics-icon\"><div>Blog</div></a><!--Light/Dark Mode--><img class=\"lightTheme cursor-pointer h-16\" src=\"/shared/Sun-icon.png\"/><img class=\"darkTheme cursor-pointer h-16\" src=\"/shared/Moon-icon.png\"/></div></nav><header class=\"flex md:flex-row flex-col justify-center items-stretch gap-4\">");
+
+    html.push_str(&author_name);
+
+    html.push_str("<div class=\"h-0.5 md:w-0.5 md:h-auto dark:bg-zinc-900 bg-zinc-50\"></div><div class=\"flex flex-col text-lg justify-center text-left\"><div>Top Tags</div><div>");
+    
+    let mut tag_iter = author.top_tags.iter();
+    // First tag
+    html.push_str(tag_iter.next().expect("This author has no tags."));
+    // The rest of the tags
+    for tag in tag_iter {
+        html.push_str(", ");
+        html.push_str(&tag);
+    }
+
+    html.push_str("</div></div></header>");
+
+    let filtered_blogs: Vec<&Blog> = blogs.into_iter().filter(|blog| blog.author.eq(author_name)).collect();
+
+    html.push_str(
+        &html_for_blog_blurbs(
+            &filtered_blogs
+        )
+    );
+
+    return html;
+}
 
 pub fn html_for_main_page(blog_entries: &Vec<Blog>) -> String {
     // Head, nav, and header
@@ -12,13 +44,16 @@ pub fn html_for_main_page(blog_entries: &Vec<Blog>) -> String {
     return html
 }
 
-fn html_for_blog_blurbs(blog_entries: &Vec<Blog>) -> String {
+fn html_for_blog_blurbs<T: Borrow<Blog>>(blog_entries: &[T]) -> String {
     let mut html = String::from("<div class=\"flex flex-col items-center gap-5\">");
 
     // Add blurbs for each blog
     for blog in blog_entries {
+
+        let blog = blog.borrow();
+
         // Since blog entries are already sorted, we can use their enumerated position for URLs
-        html.push_str("<article class=\"w-3/4 border-t-2\"><div class=\"flex flex-col md:flex-row md:items-end py-2 gap-2\"><h2 class=\"text-2xl md:text-4xl\"><a href=\"");
+        html.push_str("<article class=\"w-3/4 border-t-2\"><div class=\"flex flex-col md:flex-row md:items-end py-2 gap-2\"><h2 class=\"text-2xl md:text-4xl\"><a href=\"/blog/");
         html.push_str(&blog.url);
         html.push_str("/\" class=\"hover:underline\">");
         html.push_str(&blog.title);
@@ -30,10 +65,10 @@ fn html_for_blog_blurbs(blog_entries: &Vec<Blog>) -> String {
         html.push_str(&blog.author);
         html.push_str("</a></p></div><p>");
         match blog.content.first().expect("There wasn't a first paragraph.") {
-            Block::Paragraph(vec) => html.push_str(&parse_paragraph(vec)),
+            Block::Paragraph(vec) => html.push_str(&parse_paragraph(&vec)),
             _ => { }
         }
-        html.push_str("</p><a href=\"");
+        html.push_str("</p><a href=\"/blog/");
         html.push_str(&blog.url);
         html.push_str("/\" class=\"hover:underline text-sky-700\">Read more...</a></article>");
     }
@@ -43,7 +78,7 @@ fn html_for_blog_blurbs(blog_entries: &Vec<Blog>) -> String {
     return html
 }
 
-pub fn html_for_blog(blog: &Blog) -> String {
+pub fn html_for_article(blog: &Blog) -> String {
     // Head and nav
     let mut html = String::from("<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><title>Hopcodes Blog</title><link rel=\"stylesheet\" href=\"/shared/nav.css\"><link rel=\"stylesheet\" type=\"text/css\" href=\"index.css\"><link rel=\"icon\" type=\"image/x-icon\" href=\"/shared/favicon.ico\"></head><body class=\"bg-zinc-50 text-zinc-900 dark:bg-zinc-900 dark:text-zinc-50\"><!-- Mobile Nav --><nav class=\"flex flex-col md:hidden bg-maroon p-2 text-3xl\"><div class=\"flex justify-between\"><a href=\"/\" class=\"bg-contain bg-home-icon h-10 w-10\"></a><div class=\"flex gap-2\"><button id=\"nav-hamburger-button\" type=\"button\" class=\"inline-flex items-center p-2 rounded-lg\"><svg class=\"w-6 h-6\" fill=\"currentColor\" viewBox=\"0 0 20 20\" xmlns=\"http://www.w3.org/2000/svg\"><path fill-rule=\"evenodd\" d=\"M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z\" clip-rule=\"evenodd\"></path></svg></button><img class=\"lightTheme cursor-pointer h-10\" src=\"/shared/Sun-icon.png\"/><img class=\"darkTheme cursor-pointer h-10\" src=\"/shared/Moon-icon.png\"/></div></div><div class=\"hidden w-full\" id=\"navbar-collapsable\"><div class=\"flex flex-col\"><a href=\"/\" class=\"mobileNavElement\">Home</a><a href=\"#\" class=\"mobileNavElement\">Calendar</a><a href=\"#\" class=\"mobileNavElement\">Robotics</a><a href=\"/blog/\" class=\"mobileNavElement\">Blog</a></div></div></nav><!-- Desktop Nav --><nav class=\"desktopNav\"><!-- Homepage --><a href=\"/\" class=\"navElement bg-home-icon\"><div>Home</div></a><!-- Navigation Icons --><div class=\"flex gap-2\"><!-- Calendar --><a href=\"?\" class=\"navElement bg-calendar-icon\"><div>Calendar</div></a><!-- Robotics --><a href=\"?\" class=\"navElement bg-robotics-icon\"><div>Robotics</div></a><!-- Blog --><a href=\"/blog/\" class=\"navElement bg-robotics-icon\"><div>Blog</div></a><!--Light/Dark Mode--><img class=\"lightTheme cursor-pointer h-16\" src=\"/shared/Sun-icon.png\"/><img class=\"darkTheme cursor-pointer h-16\" src=\"/shared/Moon-icon.png\"/></div></nav>");
     

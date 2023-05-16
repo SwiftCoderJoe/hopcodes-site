@@ -88,9 +88,9 @@ pub struct Blog {
 }
 
 pub struct Author {
-    name: String,
-    tags: HashMap<String, u16>,
-    top_tags: Vec<String>
+    pub name: String,
+    pub tags: HashMap<String, u16>,
+    pub top_tags: Vec<String>
 }
 struct TaglessAuthor {
     name: String,
