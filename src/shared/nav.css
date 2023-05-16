@@ -13,3 +13,7 @@ nav.desktopNav {
 .mobileNavElement {
     @apply hover:bg-zinc-300 hover:dark:bg-zinc-600 transition duration-200 rounded p-1
 }
+
+header {
+    @apply text-center m-5 p-5 rounded-xl text-3xl md:text-6xl text-zinc-50 dark:text-zinc-900 bg-zinc-600 dark:bg-zinc-300
+}

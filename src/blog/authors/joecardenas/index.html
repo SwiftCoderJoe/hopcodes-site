@@ -11,7 +11,7 @@
 </head>
 <body class="bg-zinc-50 text-zinc-900 dark:bg-zinc-900 dark:text-zinc-50">
     <!-- Mobile Nav -->
-    <nav class="flex flex-col md:hidden bg-maroon p-2 lg:text-3xl">
+    <nav class="flex flex-col md:hidden bg-maroon p-2 text-3xl">
         <div class="flex justify-between">
             <a href="/" class="bg-contain bg-home-icon h-10 w-10"></a>
             <div class="flex gap-2">
@@ -59,7 +59,14 @@
         </div>
     </nav>
 
-    <header>Hopcodes Blog</header>
+    <header class="flex md:flex-row flex-col justify-center items-stretch gap-4">
+        Joseph Cardenas
+        <div class="h-0.5 md:w-0.5 md:h-auto dark:bg-zinc-900 bg-zinc-50"></div>
+        <div class="flex flex-col text-lg justify-center text-left">
+            <div>HopCodes Club Head</div>
+            <div>Swift, Rust, JavaScript</div>
+        </div>
+    </header>
 
     <div class="flex flex-col items-center gap-5">
         <article class="w-3/4 border-t-2">
