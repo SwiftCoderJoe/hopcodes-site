@@ -1,5 +1,5 @@
 use markdown::{Block, Span, ListItem};
-use crate::Blog;
+use crate::blog::Blog;
 
 pub fn html_for_main_page(blog_entries: &Vec<Blog>) -> String {
     // Head, nav, and header
@@ -16,10 +16,10 @@ fn html_for_blog_blurbs(blog_entries: &Vec<Blog>) -> String {
     let mut html = String::from("<div class=\"flex flex-col items-center gap-5\">");
 
     // Add blurbs for each blog
-    for (i, blog) in blog_entries.iter().enumerate() {
+    for blog in blog_entries {
         // Since blog entries are already sorted, we can use their enumerated position for URLs
-        html.push_str("<article class=\"w-3/4 border-t-2\"><div class=\"flex flex-col md:flex-row md:items-end py-2 gap-2\"><h2 class=\"text-2xl md:text-4xl\"><a href=\"post");
-        html.push_str(&i.to_string());
+        html.push_str("<article class=\"w-3/4 border-t-2\"><div class=\"flex flex-col md:flex-row md:items-end py-2 gap-2\"><h2 class=\"text-2xl md:text-4xl\"><a href=\"");
+        html.push_str(&blog.url);
         html.push_str("/\" class=\"hover:underline\">");
         html.push_str(&blog.title);
         html.push_str("</a></h2><p>");
@@ -33,8 +33,8 @@ fn html_for_blog_blurbs(blog_entries: &Vec<Blog>) -> String {
             Block::Paragraph(vec) => html.push_str(&parse_paragraph(vec)),
             _ => { }
         }
-        html.push_str("</p><a href=\"post");
-        html.push_str(&i.to_string());
+        html.push_str("</p><a href=\"");
+        html.push_str(&blog.url);
         html.push_str("/\" class=\"hover:underline text-sky-700\">Read more...</a></article>");
     }
 
@@ -64,7 +64,7 @@ pub fn html_for_blog(blog: &Blog) -> String {
             Block::Paragraph(vec) => html.push_str(&parse_paragraph(vec)),
             Block::Blockquote(vec) => todo!(),
             Block::CodeBlock(option, string) => todo!(),
-            Block::OrderedList(vec, listType) => todo!(),
+            Block::OrderedList(vec, list_type) => todo!(),
             Block::UnorderedList(vec) => html.push_str(&parse_unordered_list(vec)),
             Block::Raw(string) => todo!(),
             Block::Hr => todo!(),
@@ -90,8 +90,8 @@ fn parse_paragraph(vec: &Vec<Span>) -> String {
 
 fn parse_unordered_list(vec: &Vec<ListItem>) -> String {
     let mut list = String::from("<ul class=\"mb-2 list-disc list-inside\">");
-    for listItem in vec {
-        match listItem {
+    for list_item in vec {
+        match list_item {
             ListItem::Simple(vec) => {
                 for item in vec {
                     list.push_str("<li>");

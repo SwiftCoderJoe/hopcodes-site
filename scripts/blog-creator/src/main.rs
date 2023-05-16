@@ -1,14 +1,12 @@
-use std::collections::HashMap;
 use std::ffi::OsString;
 use std::fs::{self};
-use std::str::FromStr;
-use html_creator::html_for_main_page;
 use markdown::{self, Block};
-use chrono::{NaiveDate};
 
-use crate::html_creator::html_for_blog;
+mod blog;
+use blog::{Blog, Author, build_blog, create_author_list};
 
 mod html_creator;
+use html_creator::{html_for_blog, html_for_main_page};
 
 fn main() {
 
@@ -28,35 +26,24 @@ fn main() {
 
     blog_entries.sort_by(|a, b| a.date.cmp(&b.date));
 
+    // Remove the existing blog dir
+    // This not only removes an entire directory but it also fails silently. EXTREMELY DANGEROUS!
+    let _ = fs::remove_dir_all("../../src/blog/");
+    fs::create_dir_all("../../src/blog").expect("Couldn't create blog folder.");
+
     // Create main page
-    println!("{}", html_for_main_page(&blog_entries));
+    fs::write(format!("../../src/blog/index.html"), html_for_main_page(&blog_entries))
+        .expect("Couldn't write blog homepage.");
     
+    // Create blog pages
     for (i, blog) in blog_entries.iter().enumerate() {
-        // Create blog pages
-        fs::write(format!("../../src/blog/post{}/index.html", i), html_for_blog(blog))
+        fs::create_dir_all(format!("../../src/blog/{}", blog.url)).expect("Couldn't create article folder.");
+        fs::write(format!("../../src/blog/{}/index.html", blog.url), html_for_blog(blog))
             .expect("Couldn't write blog file.");
-
-
-        // print!("{}th blog, date: {}, with tags: ", i, blog.date_descriptor);
-        // for tag in &blog.tags {
-        //     print!("{}, ", tag);
-        // }
-        // print!("\n");
     }
-}
 
-pub struct Blog {
-    title: String,
-    author: String,
-    date_descriptor: String,
-    date: NaiveDate,
-    tags: Vec<String>,
-    content: Vec<Block>,
-}
-
-pub struct Author {
-    name: String,
-    tags: HashMap<String, u16>
+    // Create author pages
+    let authors = create_author_list(&blog_entries);
 }
 
 fn parse_blog(content: String, filename: OsString) -> Option<Blog> {
@@ -82,14 +69,12 @@ fn parse_blog(content: String, filename: OsString) -> Option<Blog> {
     }
 
     let content = markdown::tokenize(unparsed_content);
-    let date_time = NaiveDate::parse_from_str(date, "%B %d, %Y").unwrap();
 
-    return Some(Blog { 
-        title: title.to_owned(), 
-        author: author.to_owned(), 
-        date_descriptor: date.to_owned(), 
-        date: date_time,
-        tags: tags,
-        content: content
-    })
+    return Some(build_blog(
+        title.to_owned(),
+        author.to_owned(),
+        date.to_owned(),
+        tags,
+        content
+    ))
 }
