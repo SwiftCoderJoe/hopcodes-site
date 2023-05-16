@@ -87,7 +87,9 @@ pub fn html_for_article(blog: &Blog) -> String {
     // Title bar
     html.push_str("<header class=\"flex md:flex-row flex-col justify-center items-stretch gap-4\">");
     html.push_str(&blog.title);
-    html.push_str("<div class=\"h-0.5 md:w-0.5 md:h-auto dark:bg-zinc-900 bg-zinc-50\"></div><div class=\"flex flex-col text-lg justify-center text-left\"><a href=\"/blog/authors/joecardenas/\" class=\"hover:underline text-sky-700\">");
+    html.push_str("<div class=\"h-0.5 md:w-0.5 md:h-auto dark:bg-zinc-900 bg-zinc-50\"></div><div class=\"flex flex-col text-lg justify-center text-left\"><a href=\"/blog/authors/");
+    html.push_str(&blog.author.replace(" ", "_"));
+    html.push_str("/\" class=\"hover:underline text-sky-700\">");
     html.push_str(&blog.author);
     html.push_str("</a><div>");
     html.push_str(&blog.date_descriptor);
