@@ -26,7 +26,7 @@ fn main() {
         )
     }
 
-    blog_entries.sort_by(|a, b| a.date.cmp(&b.date));
+    blog_entries.sort_by(|a, b| b.date.cmp(&a.date));
 
     // Remove the existing blog dir
     // This not only removes an entire directory but it also fails silently. EXTREMELY DANGEROUS!
@@ -40,7 +40,7 @@ fn main() {
         .expect("Couldn't write main page CSS.");
     
     // Create blog pages
-    for (i, blog) in blog_entries.iter().enumerate() {
+    for blog in blog_entries.iter() {
         fs::create_dir_all(format!("../../src/blog/{}", blog.url)).expect("Couldn't create article folder.");
         fs::write(format!("../../src/blog/{}/index.html", blog.url), html_for_article(blog))
             .expect("Couldn't write blog file.");

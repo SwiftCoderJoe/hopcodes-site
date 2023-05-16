@@ -67,13 +67,13 @@ fn iterate_tags(author: &mut TaglessAuthor, tags: &Vec<String>) {
 // LOTS of string copies happening here... fix later?
 fn author_from_tagless_author(author: TaglessAuthor) -> Author {
     let binding = author.tags.to_owned();
-    let mut raw_tags: Vec<(&String, &u16)> = binding.iter().map(|(id, count)| (id, count)).collect();
+    let mut raw_tags: Vec<(String, u16)> = binding.into_iter().map(|(id, count)| (id, count)).collect();
     raw_tags.sort_by(|(_, a), (_, b)| b.cmp(a));
 
     return Author { 
         name: author.name, 
         tags: author.tags, 
-        top_tags: raw_tags[0..min(raw_tags.len(), 3)].iter().map(|(tag, _)| tag.to_owned().to_owned()).collect()
+        top_tags: raw_tags[0..min(raw_tags.len(), NUMBER_OF_TAGS)].into_iter().map(|(tag, _)| tag.to_owned()).collect()
     };
 }
 

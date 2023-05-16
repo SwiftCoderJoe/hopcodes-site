@@ -1,7 +1,7 @@
 use std::borrow::Borrow;
 
 use markdown::{Block, Span, ListItem};
-use crate::blog::{Blog, Author, self};
+use crate::blog::{Blog, Author};
 
 pub fn html_for_author(author_name: &str, author: Author, blogs: &[Blog]) -> String {
 
@@ -29,6 +29,8 @@ pub fn html_for_author(author_name: &str, author: Author, blogs: &[Blog]) -> Str
             &filtered_blogs
         )
     );
+
+    html.push_str("<script src=\"/shared/darkMode.js\"></script><script src=\"/shared/menu.js\"></script></body></html>");
 
     return html;
 }
@@ -97,11 +99,11 @@ pub fn html_for_article(blog: &Blog) -> String {
         match item {
             Block::Header(vec, size) => html.push_str(&parse_header(vec, *size)),
             Block::Paragraph(vec) => html.push_str(&parse_paragraph(vec)),
-            Block::Blockquote(vec) => todo!(),
-            Block::CodeBlock(option, string) => todo!(),
-            Block::OrderedList(vec, list_type) => todo!(),
+            Block::Blockquote(_vec) => todo!(),
+            Block::CodeBlock(_option, _string) => todo!(),
+            Block::OrderedList(_vec, _list_type) => todo!(),
             Block::UnorderedList(vec) => html.push_str(&parse_unordered_list(vec)),
-            Block::Raw(string) => todo!(),
+            Block::Raw(_string) => todo!(),
             Block::Hr => todo!(),
         }
     }
@@ -109,7 +111,7 @@ pub fn html_for_article(blog: &Blog) -> String {
     return html
 }
 
-fn parse_header(vec: &Vec<Span>, size: usize) -> String {
+fn parse_header(vec: &Vec<Span>, _size: usize) -> String {
     let mut header = String::from("<h2 class=\"text-2xl mb-2\">");
     header.push_str(&parse_bare_span_list(vec));
     header.push_str("</h2>");
@@ -143,22 +145,31 @@ fn parse_unordered_list(vec: &Vec<ListItem>) -> String {
 
 /// Starts with a space
 fn parse_bare_span_list(vec: &Vec<Span>) -> String {
-    let mut header = String::new();
+    let mut html = String::new();
     for span in vec {
-        header.push(' ');
-        header.push_str(&parse_span(span));
+        html.push_str(&parse_span(span));
     }
-    return header
+    return html
 }
 
 fn parse_span(span: &Span) -> String {
     match span {
         Span::Break => String::from("<br>"),
         Span::Text(str) => str.to_owned(),
-        Span::Code(_) => todo!(),
+        Span::Code(str) => {
+            let mut html = String::from("<span class=\"rounded p-1 bg-zinc-600 text-zinc-50\">");
+            html.push_str(str);
+            html.push_str("</span>");
+            return html;
+        },
         Span::Link(_, _, _) => todo!(),
         Span::Image(_, _, _) => todo!(),
-        Span::Emphasis(_) => todo!(),
+        Span::Emphasis(spans) => {
+            let mut html = String::from("<em>");
+            html.push_str(&parse_bare_span_list(spans));
+            html.push_str("</em>");
+            return html
+        },
         Span::Strong(_) => todo!(),
     }
 }
