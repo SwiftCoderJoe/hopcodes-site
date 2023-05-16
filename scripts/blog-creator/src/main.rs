@@ -8,6 +8,8 @@ use blog::{Blog, Author, build_blog, create_author_list};
 mod html_creator;
 use html_creator::{html_for_blog, html_for_main_page};
 
+const TAILWIND_CSS: &str = "@tailwind base;@tailwind components;@tailwind utilities;";
+
 fn main() {
 
     let mut blog_entries: Vec<Blog> = Vec::new();
@@ -32,14 +34,18 @@ fn main() {
     fs::create_dir_all("../../src/blog").expect("Couldn't create blog folder.");
 
     // Create main page
-    fs::write(format!("../../src/blog/index.html"), html_for_main_page(&blog_entries))
+    fs::write("../../src/blog/index.html", html_for_main_page(&blog_entries))
         .expect("Couldn't write blog homepage.");
+    fs::write("../../src/blog/index.css", TAILWIND_CSS)
+        .expect("Couldn't write main page CSS.");
     
     // Create blog pages
     for (i, blog) in blog_entries.iter().enumerate() {
         fs::create_dir_all(format!("../../src/blog/{}", blog.url)).expect("Couldn't create article folder.");
         fs::write(format!("../../src/blog/{}/index.html", blog.url), html_for_blog(blog))
             .expect("Couldn't write blog file.");
+        fs::write(format!("../../src/blog/{}/index.css", blog.url), TAILWIND_CSS)
+            .expect("Couldn't write article CSS.");
     }
 
     // Create author pages
